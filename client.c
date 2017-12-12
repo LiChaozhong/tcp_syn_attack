@@ -109,7 +109,7 @@ int main(int argc, char *argv[])
 
             if (0 == strcmp(send_buf, "/quit"))
             {
-                printf("quiting from chat room!\n");
+                printf("quit!\n");
                 break;
             }
 

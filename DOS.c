@@ -115,7 +115,8 @@ void ip_tcp_send(const char *src_ip, int src_port, const char *dst_ip, int dst_p
     free(tcp_header);
 }
 
-int main(int argc, const char *argv[])
+/*
+int main(const char *src_ip, int src_port, const char *dst_ip, int dst_port)
 {
     if (argc != 5)
     {
@@ -123,8 +124,8 @@ int main(int argc, const char *argv[])
         exit(1);
     }
 
-    /* 发送ip_tcp报文 */
     ip_tcp_send(argv[1], atoi(argv[2]), argv[3], atoi(argv[4]));
 
     return 0;
 }
+*/
