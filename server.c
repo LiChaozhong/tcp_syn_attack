@@ -28,6 +28,7 @@ struct client_info
     struct sockaddr_in client_address;
     char *name;
     int first;
+    int score;
 };
 
 int main()
@@ -125,6 +126,7 @@ int main()
                     clientinfo[newfd].client_id = newfd;
                     clientinfo[newfd].client_address.sin_addr = client_addr.sin_addr;
                     clientinfo[newfd].first = 0;
+		    clientinfo[newfd].score = 10;
                     if (-1 == newfd)
                     {
                         perror("accept() error:");
@@ -204,6 +206,8 @@ int main()
                                          {
                                             perror("send data error:");
                                          }
+					clientinfo[tmp_j].score++;
+					clientinfo[tmp_i].score--;
                                 }
                             }// end for
 
@@ -214,7 +218,8 @@ int main()
                             strcat(send_buf, "/help-----for help\n");
                             strcat(send_buf, "/quit-----for quit\n");
                             strcat(send_buf, "/who-----display all users\n");
-                            strcat(send_buf, "/send name-----send message to user only\n");
+                            strcat(send_buf, "/attack ip port-----attack ip:port\n");
+			    strcat(send_buf, "/socre-----dispaly yours score\n");
                             if (-1 == write(tmp_i, send_buf, 2048))
                             {
                                 perror("send data error:");
@@ -235,13 +240,22 @@ int main()
                             {
                                 perror("send data error:");
                             }
+                        }
+			else if(0 == strcmp(data_buf, "/score"))
+                        {
+     			    sprintf(send_buf,"your score is: %d",clientinfo[tmp_i].score);                     
+                            if (-1 == write(tmp_i, send_buf, 2048))
+                            {
+                                perror("send data error:");
+                            }
                         }else
                         {
                             strcat(send_buf, "wrong command\n");
                             strcat(send_buf, "/help-----for help\n");
                             strcat(send_buf, "/quit-----for quit\n");
                             strcat(send_buf, "/who-----display all users\n");
-                            strcat(send_buf, "/send name-----send message to user only\n");
+                    	    strcat(send_buf, "/attack ip port-----attack ip:port\n");
+			    strcat(send_buf, "/socre-----dispaly yours score\n");
                             if (-1 == write(tmp_i, send_buf, 2048))
                             {
                                 perror("send data error:");

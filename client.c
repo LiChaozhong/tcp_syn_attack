@@ -112,6 +112,7 @@ int main(int argc, char *argv[])
 		printf("%s\n", print_buf);
 		fflush(stdout);
 		attack(addr, port);
+		printf("finish attack");
               }else{
 		printf("%s\n", recv_buf);
 		fflush(stdout);
