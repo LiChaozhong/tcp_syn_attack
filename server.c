@@ -171,9 +171,9 @@ int main()
                     } else if(clientinfo[tmp_i].first == 0)
                     {
                         clientinfo[tmp_i].first++;
-                        clientinfo[tmp_i].name = (char*)malloc((nbytes+1)*sizeof(char));
-                        strcpy(clientinfo[tmp_i].name,data_buf);
-                        printf("%s coming ...\n", clientinfo[tmp_i].name);
+                        clientinfo[tmp_i].name = (char*)malloc((nbytes-1)*sizeof(char));
+                        strncpy(clientinfo[tmp_i].name,data_buf,nbytes-1);
+                        printf("%s coming ...\n", clientinfo[tmp_i].name));
                         strcat(send_buf, "username got.\n");
                         if (-1 == write(tmp_i, send_buf, 2048))
                         {
