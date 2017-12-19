@@ -13,6 +13,7 @@
 #include <sys/types.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <ctype.h>
 
 /* port we're listening on */
 #define SERVERPORT 1574
@@ -263,7 +264,7 @@ int main()
                         }
 
                     }
-                    else
+                    else if(isprint(data_buf[0]))
                     {
                         printf("get data:%s from the user :", data_buf);
                         printf("%s\n", clientinfo[tmp_i].name);
